@@ -11,6 +11,7 @@
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+    NSLog(@"%s", __FUNCTION__ );
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self) {
         self.cropSize = CGSizeMake(320,320);
@@ -22,40 +23,47 @@
 
 - (void)dealloc
 {
+    NSLog(@"%s", __FUNCTION__ );
     [_saveButton release];
     [super dealloc];
 }
 
 - (void)viewDidUnload
 {
+    NSLog(@"%s", __FUNCTION__ );
     [super viewDidUnload];
     self.saveButton = nil;
 }
 
 - (IBAction)setSquareAction:(id)sender
 {
+    NSLog(@"%s", __FUNCTION__ );
     self.cropSize = CGSizeMake(320, 320);
 }
 
 - (IBAction)setLandscapeAction:(id)sender
 {
+    NSLog(@"%s", __FUNCTION__ );
     self.cropSize = CGSizeMake(320, 240);
 }
 
 
 - (IBAction)setLPortraitAction:(id)sender
 {
+    NSLog(@"%s", __FUNCTION__ );
     self.cropSize = CGSizeMake(240, 320);
 }
 
 #pragma mark Hooks
 - (void)startTransformHook
 {
+    NSLog(@"%s", __FUNCTION__ );
     self.saveButton.tintColor = [UIColor colorWithRed:0 green:49/255.0f blue:98/255.0f alpha:1];
 }
 
 - (void)endTransformHook
 {
+    NSLog(@"%s", __FUNCTION__ );
     self.saveButton.tintColor = [UIColor colorWithRed:0 green:128/255.0f blue:1 alpha:1];
 }
 

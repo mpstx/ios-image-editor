@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		633D75F416D3578A00D62099 /* SimpleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 633D75F216D3578A00D62099 /* SimpleViewController.m */; };
+		633D75F516D3578A00D62099 /* SimpleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633D75F316D3578A00D62099 /* SimpleViewController.xib */; };
 		EC23E839167B5C3200314147 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC23E838167B5C3200314147 /* Default-568h@2x.png */; };
 		EC23E850167B600D00314147 /* DemoImageEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC23E84F167B600D00314147 /* DemoImageEditor.xib */; };
 		EC23EAED15ECC5610051EA9E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC23EAEC15ECC5610051EA9E /* UIKit.framework */; };
@@ -22,6 +24,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		633D75F116D3578A00D62099 /* SimpleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleViewController.h; sourceTree = "<group>"; };
+		633D75F216D3578A00D62099 /* SimpleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleViewController.m; sourceTree = "<group>"; };
+		633D75F316D3578A00D62099 /* SimpleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimpleViewController.xib; sourceTree = "<group>"; };
 		EC23E835167B5B7A00314147 /* HFImageEditorViewController+SubclassingHooks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HFImageEditorViewController+SubclassingHooks.h"; sourceTree = "<group>"; };
 		EC23E838167B5C3200314147 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		EC23E84F167B600D00314147 /* DemoImageEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoImageEditor.xib; sourceTree = "<group>"; };
@@ -64,7 +69,7 @@
 			children = (
 				EC23E838167B5C3200314147 /* Default-568h@2x.png */,
 				EC23EAF215ECC5610051EA9E /* ImageEditor */,
-				ECFB417A15EE28D000FA7714 /* ImageEditorDemo */,
+				ECFB417A15EE28D000FA7714 /* ImageEditorDemo2 */,
 				EC23EAF315ECC5610051EA9E /* Supporting Files */,
 				EC23EAEB15ECC5610051EA9E /* Frameworks */,
 				EC23EAE915ECC5610051EA9E /* Products */,
@@ -114,7 +119,7 @@
 			path = ImageEditor;
 			sourceTree = "<group>";
 		};
-		ECFB417A15EE28D000FA7714 /* ImageEditorDemo */ = {
+		ECFB417A15EE28D000FA7714 /* ImageEditorDemo2 */ = {
 			isa = PBXGroup;
 			children = (
 				EC23E84F167B600D00314147 /* DemoImageEditor.xib */,
@@ -122,7 +127,11 @@
 				ECFB417C15EE28D000FA7714 /* DemoAppDelegate.m */,
 				ECA6FB941645C8FA0090CA20 /* DemoImageEditor.h */,
 				ECA6FB951645C8FA0090CA20 /* DemoImageEditor.m */,
+				633D75F116D3578A00D62099 /* SimpleViewController.h */,
+				633D75F216D3578A00D62099 /* SimpleViewController.m */,
+				633D75F316D3578A00D62099 /* SimpleViewController.xib */,
 			);
+			name = ImageEditorDemo2;
 			path = ImageEditorDemo;
 			sourceTree = "<group>";
 		};
@@ -180,6 +189,7 @@
 				ECFB418315EE28D000FA7714 /* InfoPlist.strings in Resources */,
 				EC23E839167B5C3200314147 /* Default-568h@2x.png in Resources */,
 				EC23E850167B600D00314147 /* DemoImageEditor.xib in Resources */,
+				633D75F516D3578A00D62099 /* SimpleViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +205,7 @@
 				ECFB418215EE28D000FA7714 /* DemoAppDelegate.m in Sources */,
 				ECFB418515EE28D000FA7714 /* main.m in Sources */,
 				ECA6FB961645C8FA0090CA20 /* DemoImageEditor.m in Sources */,
+				633D75F416D3578A00D62099 /* SimpleViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
