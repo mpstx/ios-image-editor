@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HFImageEditorFrameView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "HFImageEditorFrameView.h"
 #import "DemoImageEditor.h"
 
 @interface SimpleViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>

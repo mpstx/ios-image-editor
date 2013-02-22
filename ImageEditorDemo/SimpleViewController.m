@@ -3,6 +3,8 @@
 //  ImageEditor
 //
 //  Created by David di Marcantonio on 19/02/13.
+//  Last update 22/02/13
+//
 //  Copyright (c) 2013 Heitor Ferreira. All rights reserved.
 //
 
@@ -89,14 +91,8 @@
 - (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     NSLog(@"%s", __FUNCTION__ );
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cancel"
-                                                    message:@"Nowhere to go my friend. This is a demo."
-                                                   delegate:nil
-                                          cancelButtonTitle:@"Ok"
-                                          otherButtonTitles: nil];
-    [alert show];
-    [alert release];
-}
+    [picker dismissModalViewControllerAnimated:YES];
+    }
 
 
 #pragma mark IBACTIONs
@@ -109,8 +105,9 @@
     picker.allowsEditing = NO;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.delegate = self;
-    //self.window.rootViewController = picker;
-    self.window.rootViewController = picker;
+    
+    
+    [self presentModalViewController:picker animated:YES];
     [picker release];
     
     self.library = [[[ALAssetsLibrary alloc] init] autorelease];
@@ -133,8 +130,8 @@
                                            }
                                        }];
         }
-        [picker popToRootViewControllerAnimated:YES];
-        [picker setNavigationBarHidden:NO animated:YES];
+        
+        [picker dismissModalViewControllerAnimated:YES];
     };
 
 }
