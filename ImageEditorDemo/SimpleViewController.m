@@ -61,6 +61,76 @@
 }
 
 #pragma mark ImagePickerManagement
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex;
+{
+    NSLog(@"%s", __FUNCTION__ );
+    switch (buttonIndex)
+    {
+        case 0:
+            // Camera Button
+            [self displayImagePickerWithSource:UIImagePickerControllerSourceTypeCamera];
+            break;
+        case 1:
+            // Library Button
+            [self displayImagePickerWithSource:UIImagePickerControllerSourceTypePhotoLibrary];
+            break;
+        case 2:
+            // Cancel Button
+            break;
+        default:
+            break;
+    }
+}
+
+-(void) displayImagePickerWithSource:(UIImagePickerControllerSourceType)src
+{
+    NSLog(@"%s", __FUNCTION__ );
+    if([UIImagePickerController isSourceTypeAvailable:src])
+    {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        
+        picker.allowsEditing = NO;
+        picker.sourceType = src;
+        picker.delegate = self;
+        
+        [self presentModalViewController:picker animated:YES];        
+        
+        self.library = [[ALAssetsLibrary alloc] init];
+        
+        if (!self.imageEditor)
+        {
+            self.imageEditor = [[DemoImageEditor alloc] initWithNibName:@"DemoImageEditor" bundle:nil];
+        }
+        
+        __block SimpleViewController *weakSelf = self;
+        
+        self.imageEditor.doneCallback = ^(UIImage *editedImage, BOOL canceled){
+            if(!canceled)
+            {
+                [weakSelf.library writeImageToSavedPhotosAlbum:[editedImage CGImage]
+                                                   orientation:(ALAssetOrientation)(editedImage.imageOrientation)
+                                               completionBlock:^(NSURL *assetURL, NSError *error){
+                                                   if (error) {
+                                                       UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error Saving"
+                                                                                                       message:[error localizedDescription]
+                                                                                                      delegate:nil
+                                                                                             cancelButtonTitle:@"Ok"
+                                                                                             otherButtonTitles: nil];
+                                                       [alert show];
+                                                   }
+                                               }];
+            }
+            /* *********** here the image processing  *** */
+            
+            /* ****************************************** */
+            
+            [picker dismissModalViewControllerAnimated:NO];
+        };
+    }
+}
+
+
+
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSLog(@"%s", __FUNCTION__ );
@@ -84,53 +154,38 @@
 
 
 
-
 - (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     NSLog(@"%s", __FUNCTION__ );
     [picker dismissModalViewControllerAnimated:YES];
-    }
+}
 
 
 #pragma mark IBACTIONs
-- (IBAction)LaunchImagePickerPressed:(id)sender
+- (IBAction) LaunchImagePickerPressed: (id) sender
 {
     NSLog(@"%s", __FUNCTION__ );
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    
-    picker.allowsEditing = NO;
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    picker.delegate = self;
-    
-    
-    [self presentModalViewController:picker animated:YES];
-    
-    __block SimpleViewController *weakSelf = self;
-    
-    self.library = [[ALAssetsLibrary alloc] init];
-    self.imageEditor = [[DemoImageEditor alloc] initWithNibName:@"DemoImageEditor" bundle:nil];
-    
-    self.imageEditor.doneCallback = ^(UIImage *editedImage, BOOL canceled){
-        if(!canceled) {
-            
-            [weakSelf.library writeImageToSavedPhotosAlbum:[editedImage CGImage]
-                                           orientation:(ALAssetOrientation)(editedImage.imageOrientation)
-                                       completionBlock:^(NSURL *assetURL, NSError *error){
-                                           if (error) {
-                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error Saving"
-                                                                                               message:[error localizedDescription]
-                                                                                              delegate:nil
-                                                                                     cancelButtonTitle:@"Ok"
-                                                                                     otherButtonTitles: nil];
-                                               [alert show];
-                                           }
-                                       }];
-        }
-        
-        [picker dismissModalViewControllerAnimated:YES];
-    };
 
+    
+    // present an alert sheet if a camera is visible and allow the user to select the camera or photo library.
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        // this device has a camera, display the alert sheet:
+        UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                      initWithTitle:@"Select Image Source"
+                                      delegate:self
+                                      cancelButtonTitle:@"Cancel"
+                                      destructiveButtonTitle:nil
+                                      otherButtonTitles:@"Camera",@"Photo Library", nil];
+        [actionSheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
+        // the tab bar was interferring in the current view
+        [actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
+    } else {
+        // without a camera, there is no choice to make. just display the modal image picker
+        [self displayImagePickerWithSource:UIImagePickerControllerSourceTypePhotoLibrary];
+    }
 }
+
 
 
 @end

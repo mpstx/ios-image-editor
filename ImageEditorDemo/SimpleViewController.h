@@ -11,7 +11,7 @@
 #import "HFImageEditorFrameView.h"
 #import "DemoImageEditor.h"
 
-@interface SimpleViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface SimpleViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) IBOutlet UIButton *LaunchImagePicker;
 @property (strong, nonatomic) IBOutlet HFImageEditorFrameView *frameView;
