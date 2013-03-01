@@ -24,8 +24,6 @@
 - (void)dealloc
 {
     NSLog(@"%s", __FUNCTION__ );
-    [_saveButton release];
-    [super dealloc];
 }
 
 - (void)viewDidUnload

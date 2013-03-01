@@ -6,7 +6,7 @@
 @interface DemoAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic)  UIWindow *window;
-@property (nonatomic, retain)  SimpleViewController *simpleViewController;
+@property (nonatomic, strong)  SimpleViewController *simpleViewController;
 
 
 @end

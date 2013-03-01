@@ -50,12 +50,6 @@
 - (void)dealloc
 {
     NSLog(@"%s", __FUNCTION__ );
-    [_LaunchImagePicker release];
-    [_frameView release];
-    [_imageEditor release];
-    [_library release];
-    [_window release];
-    [super dealloc];
 }
 - (void)viewDidUnload
 {
@@ -88,6 +82,9 @@
     }];
 }
 
+
+
+
 - (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     NSLog(@"%s", __FUNCTION__ );
@@ -96,7 +93,6 @@
 
 
 #pragma mark IBACTIONs
-
 - (IBAction)LaunchImagePickerPressed:(id)sender
 {
     NSLog(@"%s", __FUNCTION__ );
@@ -108,16 +104,17 @@
     
     
     [self presentModalViewController:picker animated:YES];
-    [picker release];
     
-    self.library = [[[ALAssetsLibrary alloc] init] autorelease];
-    self.imageEditor = [[[DemoImageEditor alloc] initWithNibName:@"DemoImageEditor" bundle:nil] autorelease];
+    __block SimpleViewController *weakSelf = self;
+    
+    self.library = [[ALAssetsLibrary alloc] init];
+    self.imageEditor = [[DemoImageEditor alloc] initWithNibName:@"DemoImageEditor" bundle:nil];
     
     self.imageEditor.doneCallback = ^(UIImage *editedImage, BOOL canceled){
         if(!canceled) {
             
-            [self.library writeImageToSavedPhotosAlbum:[editedImage CGImage]
-                                           orientation:editedImage.imageOrientation
+            [weakSelf.library writeImageToSavedPhotosAlbum:[editedImage CGImage]
+                                           orientation:(ALAssetOrientation)(editedImage.imageOrientation)
                                        completionBlock:^(NSURL *assetURL, NSError *error){
                                            if (error) {
                                                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error Saving"
@@ -126,7 +123,6 @@
                                                                                      cancelButtonTitle:@"Ok"
                                                                                      otherButtonTitles: nil];
                                                [alert show];
-                                               [alert release];
                                            }
                                        }];
         }
@@ -135,4 +131,6 @@
     };
 
 }
+
+
 @end

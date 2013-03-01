@@ -13,11 +13,11 @@
 
 @interface SimpleViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
-@property (retain, nonatomic) IBOutlet UIButton *LaunchImagePicker;
-@property (retain, nonatomic) IBOutlet HFImageEditorFrameView *frameView;
-@property (nonatomic, retain) DemoImageEditor *imageEditor;
-@property (nonatomic, retain) ALAssetsLibrary *library;
-@property (retain, nonatomic) IBOutlet UIWindow *window;
+@property (strong, nonatomic) IBOutlet UIButton *LaunchImagePicker;
+@property (strong, nonatomic) IBOutlet HFImageEditorFrameView *frameView;
+@property (nonatomic, strong) DemoImageEditor *imageEditor;
+@property (nonatomic, strong) ALAssetsLibrary *library;
+@property (strong, nonatomic) IBOutlet UIWindow *window;
 
 
 - (IBAction)LaunchImagePickerPressed:(id)sender;

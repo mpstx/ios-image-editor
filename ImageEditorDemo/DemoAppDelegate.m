@@ -12,8 +12,8 @@
 #import "SimpleViewController.h"
 
 @interface DemoAppDelegate()
-@property(nonatomic,retain) DemoImageEditor *imageEditor;
-@property(nonatomic,retain) ALAssetsLibrary *library;
+@property(nonatomic,strong) DemoImageEditor *imageEditor;
+@property(nonatomic,strong) ALAssetsLibrary *library;
 @end
 
 @implementation DemoAppDelegate
@@ -25,17 +25,12 @@
 - (void)dealloc
 {
     NSLog(@"%s", __FUNCTION__ );
-    [_library release];
-    [_imageEditor release];
-    [_window release];
-    [_simpleViewController release];
-    [super dealloc];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSLog(@"%s", __FUNCTION__ );
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     /* *** OFF by David di Marcantonio ***
     //if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
@@ -73,7 +68,7 @@
      */
     
     /* replaced by */
-    self.simpleViewController = [[[SimpleViewController alloc] initWithNibName:@"SimpleViewController" bundle:nil] autorelease];
+    self.simpleViewController = [[SimpleViewController alloc] initWithNibName:@"SimpleViewController" bundle:nil];
     self.window.rootViewController = self.simpleViewController;
 
 
