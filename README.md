@@ -1,4 +1,4 @@
-Based on the work of Heitor Ferreira, the ImagePickerController is launched by a UIButton instead of being launched by the DemoAppDelegate at application startup.
+Based on the work of Heitor Ferreira, the ImagePickerController is launched by a UIButton instead of being launched by the DemoAppDelegate at application startup. You can choose between Camera and Photo Library. 
 
 iOS Image Editor
 ================
