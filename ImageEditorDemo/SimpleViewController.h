@@ -18,7 +18,7 @@
 @property (nonatomic, strong) DemoImageEditor *imageEditor;
 @property (nonatomic, strong) ALAssetsLibrary *library;
 @property (strong, nonatomic) IBOutlet UIWindow *window;
-
+@property (strong, nonatomic) UIPopoverController *popover;
 
 - (IBAction)LaunchImagePickerPressed:(id)sender;
 

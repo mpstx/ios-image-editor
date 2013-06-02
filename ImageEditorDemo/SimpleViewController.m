@@ -51,6 +51,7 @@
 {
     NSLog(@"%s", __FUNCTION__ );
 }
+
 - (void)viewDidUnload
 {
     NSLog(@"%s", __FUNCTION__ );
@@ -84,6 +85,8 @@
 
 -(void) displayImagePickerWithSource:(UIImagePickerControllerSourceType)src
 {
+    BOOL isIpad = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+    
     NSLog(@"%s", __FUNCTION__ );
     if([UIImagePickerController isSourceTypeAvailable:src])
     {
@@ -93,7 +96,18 @@
         picker.sourceType = src;
         picker.delegate = self;
         
-        [self presentModalViewController:picker animated:YES];        
+        self.popover=nil; //release any prior pop-over
+        
+        if(isIpad && src == UIImagePickerControllerSourceTypePhotoLibrary) // requires popover controller
+        {
+            self.popover = [[UIPopoverController alloc] initWithContentViewController:picker];
+            
+            [self.popover presentPopoverFromRect:self.LaunchImagePicker.bounds inView:self.LaunchImagePicker permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+        else
+        {
+            [self presentModalViewController:picker animated:YES];
+        }
         
         self.library = [[ALAssetsLibrary alloc] init];
         
@@ -123,13 +137,16 @@
             /* *********** here the image processing  *** */
             
             /* ****************************************** */
-            
-            [picker dismissModalViewControllerAnimated:NO];
+
+            if(weakSelf.popover) //iPad.  UIImagePickerControllerSourceTypePhotoLibrary
+            {
+                [weakSelf.popover dismissPopoverAnimated:YES];
+            }
+            else
+                [weakSelf dismissModalViewControllerAnimated:NO];
         };
     }
 }
-
-
 
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
@@ -178,8 +195,8 @@
                                       destructiveButtonTitle:nil
                                       otherButtonTitles:@"Camera",@"Photo Library", nil];
         [actionSheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
-        // the tab bar was interferring in the current view
-        [actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
+
+        [actionSheet showInView:self.view];
     } else {
         // without a camera, there is no choice to make. just display the modal image picker
         [self displayImagePickerWithSource:UIImagePickerControllerSourceTypePhotoLibrary];

@@ -21,6 +21,11 @@
     return self;
 }
 
+-(CGSize)contentSizeForViewInPopover
+{
+    return self.view.bounds.size;
+}
+
 - (void)dealloc
 {
     NSLog(@"%s", __FUNCTION__ );
